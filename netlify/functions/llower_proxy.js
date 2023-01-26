@@ -5,14 +5,18 @@ const endpoint = 'https://api.twitter.com/2/oauth2/token'
 exports.handler = async function (event, context) {
   try {
     const method = event.httpMethod
+    console.log(method)
     const contentType = event.headers['Content-Type']
+    console.log(event.headers)
 
     if (method !== 'POST') {
       throw Error('unsupported method')
     } else if (contentType !== 'application/x-www-form-urlencoded') {
       throw Error('unsupported content type')
     } else {
-      const data = JSON.parse(event.body).payload.data
+      const payload = JSON.parse(event.body).payload
+      console.log(payload)
+      const data = payload.data
       const clientId = data.client_id
       const redirectUri = data.redirect_uri
       const grantType = data.grant_type
