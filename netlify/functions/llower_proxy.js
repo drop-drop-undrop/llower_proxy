@@ -6,7 +6,7 @@ exports.handler = async function (event, context) {
   try {
     const method = event.httpMethod
     console.log(method)
-    const contentType = event.headers['Content-Type']
+    const contentType = event.headers['content-type']
     console.log(event.headers)
 
     if (method !== 'POST') {
