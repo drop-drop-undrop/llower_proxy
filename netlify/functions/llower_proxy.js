@@ -8,16 +8,27 @@ exports.handler = async function (event, context) {
     delete event.headers.host
     delete event.multiValueHeaders.host
 
-    const response = await fetch(url, {
-      method: event.httpMethod,
-      headers: event.headers,
-      body: event.body
-    })
+    if (event.httpMethod === 'OPTIONS') {
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': '*',
+          'Access-Control-Max-Age': 86400,
+        }
+      }
+    } else {
+      const response = await fetch(url, {
+        method: event.httpMethod,
+        headers: event.headers,
+        body: event.body
+      })
 
-    return {
-      statusCode: response.status,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: await response.text()
+      return {
+        statusCode: response.status,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: await response.text()
+      }
     }
   } catch (error) {
     return {
