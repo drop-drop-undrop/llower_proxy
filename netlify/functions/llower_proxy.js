@@ -14,6 +14,7 @@ exports.handler = async function (event, context) {
     } else if (contentType !== 'application/x-www-form-urlencoded') {
       throw Error('unsupported content type')
     } else {
+      console.log(event.body)
       const payload = JSON.parse(event.body).payload
       console.log(payload)
       const data = payload.data
