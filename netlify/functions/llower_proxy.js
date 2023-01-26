@@ -1,4 +1,4 @@
-const { default: fetch } = require("node-fetch")
+import fetch from 'node-fetch'
 
 const endpoint = 'https://api.twitter.com/2/oauth2/token'
 
