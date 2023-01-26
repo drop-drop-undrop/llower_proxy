@@ -5,6 +5,9 @@ exports.handler = async function (event, context) {
     const matcher = /.*llower_prox(y\/|y)/
     const address = event.path.replace(matcher, '')
     const url = new URL(address)
+    delete event.headers.host
+    delete event.multiValueHeaders.host
+
     const response = await fetch(url, {
       method: event.httpMethod,
       headers: event.headers,
