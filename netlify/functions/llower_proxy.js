@@ -22,7 +22,7 @@ exports.handler = async function (event, context) {
       const response = await fetch(url, {
         method: event.httpMethod,
         headers: event.headers,
-        body: event.body
+        ...(!!event.body) && { body: event.body },
       })
 
       return {
